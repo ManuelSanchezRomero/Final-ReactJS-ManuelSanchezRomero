@@ -1,4 +1,4 @@
-/* eslint-disable eqeqeq */
+
 import Image from "./Image";
 import Description from "./Description";
 import "../../styles/detailsItem.css";
@@ -8,6 +8,7 @@ import productos from "../../utils/products";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import MoonLoader from "react-spinners/ClipLoader";
+import ButtonAddCart from "./ButtonAddCart";
 
 const DetailsItem = (props) => {
     const [ datos, setDatos ] = useState([]);
@@ -44,7 +45,7 @@ const DetailsItem = (props) => {
                                 
                             <div className="buttons">
                         
-                                    <ButtonDetalles 
+                                    <ButtonDetalles
                                         txt="Agregar al carrito"
                                         id={props.id}
 

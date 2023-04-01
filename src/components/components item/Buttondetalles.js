@@ -1,4 +1,6 @@
 
+
+
 const ButtonDetalles = (props) => {
     return(
         <button 

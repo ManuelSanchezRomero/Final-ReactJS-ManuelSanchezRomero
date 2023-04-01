@@ -2,9 +2,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+
 }
 
 .cardItem{
+    background-color: rgb(170, 166, 199);
     height: 460px;
     width: 290px;
     padding: 20px;
@@ -22,6 +24,8 @@
     display: flex;
     justify-content: center;
     overflow: hidden;
+    background-color: rgb(255, 255, 255);
+    border-radius: 15px;
 }
 
 .cardItem .cardImg img{
@@ -30,30 +34,35 @@
 }
 
 .cardItem .cardImg img:hover{
-    transform: scale(0.8);
+    transform: scale(0.85);
+    
 
 }
 
-/* descripcion */
+/* ------------------------------- descripcion ------------------------------ */
 .cardDescription{
     display: flex;
     flex-direction: column;
     height: 35%;
+    background-color: rgb(170, 166, 199);
 }
 
 .cardDescription .title{
     font-size: 21px;
     margin: 6px 0;
+    background-color: rgb(170, 166, 199);
 }
 
 .cardDescription .description{
     display: none;
+    background-color: rgb(170, 166, 199);
 }
 
 .cardDescription .cant{
     color: black;
     font-size: 16px;
     margin: 6px 0;
+    background-color: rgb(170, 166, 199);
 
 }
 
@@ -62,6 +71,7 @@
     font-size: 40px;
     font-weight: bold;
     margin: 6px 0;
+    background-color: rgb(170, 166, 199);
 }
 
 /* contenedor de botones */
@@ -71,6 +81,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    background-color: rgb(170, 166, 199);
 }
 
 .buttons #detalles{   
@@ -81,9 +92,14 @@
     color: white;
     font-size: 20px;
     border: none;
+    transition: 0.3s;
 }
 .buttons #detalles:hover{
     background-color: goldenrod;
+}
+
+.buttons img{
+    background-color:#5b00fb;
 }
 
 .buttons #addCart{
@@ -95,6 +111,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: 0.3s;
 }
 
 .buttons #addCart img{
