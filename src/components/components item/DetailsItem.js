@@ -1,62 +1,65 @@
-
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
+import MoonLoader from "react-spinners/ClipLoader";
 import Image from "./Image";
 import Description from "./Description";
-import "../../styles/detailsItem.css";
 import ButtonDetalles from "./Buttondetalles";
-import fetchSimultion from "../../utils/fetchSimulation";
-import productos from "../../utils/products";
-import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
-import MoonLoader from "react-spinners/ClipLoader";
 import ButtonAddCart from "./ButtonAddCart";
+import "../../styles/detailsItem.css";
 
-const DetailsItem = (props) => {
-    const [ datos, setDatos ] = useState([]);
-    const { idItem } = useParams();
-    
-    useEffect(() => {
+const DetailsItem = () => {
+  const [item, setItem] = useState(null);
+  const { idItem } = useParams();
 
-        setDatos([])
+  useEffect(() => {
+    const db = getFirestore();
+    const itemDoc = doc(db, "react-product", idItem);
 
-        fetchSimultion(productos.filter( flt => flt.id == idItem), 2000)
-        .then(resp => setDatos(resp))
-        .catch(error => console.log(error))
-    }, [idItem])
-    
-    return(
-        <div className="detailsItem">
-            {
-                (datos.length === 0) ? <MoonLoader color="#5b00fb" /> 
-                : datos.map( items => (
-                    <>
-                        <div className="containerLeft">
-                            <Image 
-                                imagen={items.imageProduct.firtsImage}
-                            />
-                        </div>  
+    getDoc(itemDoc)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          setItem({
+            id: snapshot.id,
+            ...snapshot.data(),
+          });
+        } else {
+          console.log("No such document!");
+        }
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
+  }, [idItem]);
 
-                        <div className="containerRigth">
-                                <Description 
-                                    title= {items.title}
-                                    parrafo= {items.description}
-                                    cantidad = {items.stock}
-                                    precio={items.price}
-                                />
-                                
-                            <div className="buttons">
-                        
-                                    <ButtonDetalles
-                                        txt="Agregar al carrito"
-                                        id={props.id}
-
-                                    />
-                            </div>
-                        </div>
-                    </>
-                ))
-            }
+  return (
+    <div className="detailsItem">
+      {!item ? (
+        <div className="containerSpinner">
+          <MoonLoader color="#5b00fb" />
         </div>
-    )
-}
+      ) : (
+        <>
+          <div className="containerLeft">
+            <Image imagen={item.imageProduct.firstImage} />
+          </div>
+          <div className="containerRigth">
+            <Description
+              title={item.title}
+              parrafo={item.description}
+              cantidad={item.stock}
+              precio={item.price}
+            />
+            <div className="buttons">
+              <ButtonDetalles txt="Agregar al carrito" id={item.id} />
+              <ButtonAddCart item={item} />
+            </div>
+          </div>
+        </>
+      )}
+    </div>
+  );
+};
 
 export default DetailsItem;
+

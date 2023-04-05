@@ -7,19 +7,17 @@ import "../../styles/containerCardsItems.css";
 
 const ContainerCardItems = () => {
   const [items, setItems] = useState([]);
-
   const { idCategory } = useParams();
 
-  
   useEffect(() => {
     const db = getFirestore();
-    const itemCollection = collection(db, "items");
+    const itemCollection = collection(db, "react-product")
     
     let queryCollection = itemCollection;
     
 
     if (idCategory) {
-      const categoryFilter = where("category", "==", idCategory);
+      const categoryFilter = where("type", "==", idCategory);
       queryCollection = query(itemCollection, categoryFilter);
     }
     
