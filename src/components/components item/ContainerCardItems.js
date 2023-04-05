@@ -1,49 +1,61 @@
-// import CardItem from "./CardItem";
-import fetchSimultion from "../../utils/fetchSimulation";
-import productos from "../../utils/products";
-import { useState, useEffect } from "react";
-import CardItem from "./CardItem";
-import "../../styles/containerCardsItems.css"
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { getFirestore, collection, getDocs, where, query } from "firebase/firestore";
 import MoonLoader from "react-spinners/ClipLoader";
+import CardItem from "./CardItem";
+import "../../styles/containerCardsItems.css";
 
 const ContainerCardItems = () => {
-    const [ datos, setDatos ] = useState( [] );
-    let {idCategory} = useParams()
+  const [items, setItems] = useState([]);
 
-    useEffect(() => {
+  const { idCategory } = useParams();
 
-        setDatos( [] );
-
-        if(idCategory === undefined){
-            fetchSimultion(productos, 1000)
-            .then(resp => setDatos(resp))
-            .catch(error => console.log(error))
-        } else {
-            fetchSimultion(productos.filter(filter => filter.type === idCategory ), 2000)
-            .then(resp => setDatos(resp))
-            .catch(error => console.log(error))
-        }
-
-    }, [idCategory])
+  
+  useEffect(() => {
+    const db = getFirestore();
+    const itemCollection = collection(db, "items");
     
-    return(
-        <div className="containerCardItems">
-            {
-                (datos.length === 0 ) ? <div className="containerSpinner"> <MoonLoader color="#5b00fb" /> </div>
-                : datos.map( product => (
-                    <CardItem 
-                        key={product.id}
-                        id={product.id}
-                        imagen={product.imageProduct.firtsImage}
-                        title={product.title}
-                        cantidad={product.stock}
-                        precio={product.price}
-                    />  
-                ))
-            }
-        </div>      
-    )
-}
+    let queryCollection = itemCollection;
+    
+
+    if (idCategory) {
+      const categoryFilter = where("category", "==", idCategory);
+      queryCollection = query(itemCollection, categoryFilter);
+    }
+    
+    getDocs(queryCollection)
+      .then((snapshotList) => {
+        const docs = snapshotList.docs.map((snapshot) => ({
+          id: snapshot.id,
+          ...snapshot.data(),
+        }));
+        setItems(docs);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [idCategory]);
+
+  return (
+    <div className="containerCardItems">
+      {items.length === 0 ? (
+        <div className="containerSpinner">
+          <MoonLoader color="#5b00fb" />
+        </div>
+      ) : (
+        items.map((product) => (
+          <CardItem
+            key={product.id}
+            id={product.id}
+            imagen={product.imageProduct.firstImage}
+            title={product.title}
+            cantidad={product.stock}
+            precio={product.price}
+          />
+        ))
+      )}
+    </div>
+  );
+};
 
 export default ContainerCardItems;
