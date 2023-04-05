@@ -4,11 +4,11 @@ import { getFirestore, doc, getDoc } from "firebase/firestore";
 import MoonLoader from "react-spinners/ClipLoader";
 import Image from "./Image";
 import Description from "./Description";
-import ButtonDetalles from "./Buttondetalles";
 import ButtonAddCart from "./ButtonAddCart";
 import "../../styles/detailsItem.css";
+import cart from "../../img/cart-white.svg"
 
-const DetailsItem = () => {
+const DetailsItem = (props) => {
   const [item, setItem] = useState(null);
   const { idItem } = useParams();
 
@@ -41,7 +41,7 @@ const DetailsItem = () => {
       ) : (
         <>
           <div className="containerLeft">
-            <Image imagen={item.imageProduct.firstImage} />
+            <Image imagen={item.imageProduct} />
           </div>
           <div className="containerRigth">
             <Description
@@ -51,8 +51,8 @@ const DetailsItem = () => {
               precio={item.price}
             />
             <div className="buttons">
-              <ButtonDetalles txt="Agregar al carrito" id={item.id} />
-              <ButtonAddCart item={item} />
+
+              <ButtonAddCart id={props.id} svg={cart} style={{ width: "180%"}}/>
             </div>
           </div>
         </>

@@ -28,6 +28,11 @@
 
 /* imagen */
 
+
+#addCart img {
+    background-color: transparent;
+}
+
 .itemCart .img{
     display: flex;
     justify-content: center;
