@@ -1,52 +1,74 @@
-import { useState } from "react";
-import { createContext } from "react";
-import productos from "../../utils/products";
+import { useState, createContext } from "react";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  where,
+  query,
+} from "firebase/firestore";
 
 export const listCartContext = createContext(null);
 
-const ProviderContextoListCart = ( {children} ) => {
+const ProviderContextoListCart = ({ children }) => {
+  const [listCart, setListCart] = useState([]);
 
-    const [listCart, setListCart] = useState([]);
-
-    const addProduct = (id) => {
-        //producto a añadir al carrito
-        const producAdd = productos.find(product => product.id === id) 
-        
-        // productos se mantendran en el carrito 
-        const productsToMaintain = listCart.filter(product => product.id !== id)
-
-        let add = true;
-        for(let product of listCart) {  
-            if(product.id === id){
-                let quantity = product.quantity;
-
-                if(quantity < producAdd.stock){
-                    const newQuantity = {...product, quantity: quantity + 1}
-                    setListCart( [...productsToMaintain, newQuantity] )
-                }
-
-                add = false;
-                break
-            }  
+  const addProduct = (id, cant) => {
+    const db = getFirestore();
+    const itemCollection = collection(db, "react-product");
+  
+    getDocs(itemCollection)
+      .then((snapshotList) => {
+        const docs = snapshotList.docs.map((snapshot) => ({
+          id: snapshot.id,
+          ...snapshot.data(),
+        }));
+        const product = docs.find((product) => product.id === id);
+  
+        if (product) {
+          let add = true;
+          for (let item of listCart) {
+            if (item.id === id) {
+              if (item.quantity + cant <= product.stock) {
+                const newQuantity = { ...item, quantity: item.quantity + cant };
+                setListCart((prevListCart) =>
+                  prevListCart.map((item) =>
+                    item.id === id ? newQuantity : item
+                  )
+                );
+              }
+              add = false;
+              break;
+            }
+          }
+          add &&
+            setListCart((prevListCart) => [
+              ...prevListCart,
+              { ...product, quantity: cant },
+            ]);
         }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-        add && setListCart( [...productsToMaintain, {...producAdd, quantity: 1}] )
-    }
+  const clearCart = () => {
+    setListCart([]);
+  };
 
-    const clearCart = () => {
-        setListCart([]);
-    }
-
-    const removeFromCart = (id) => {
-        const updateList = listCart.filter(product => product.id !== id)
-        setListCart(updateList);
-    }
-    
-    return (
-        <listCartContext.Provider value={ {removeFromCart ,listCart ,addProduct, clearCart} }>
-            {children}
-        </listCartContext.Provider> 
+  const removeFromCart = (id) => {
+    setListCart((prevListCart) =>
+      prevListCart.filter((product) => product.id !== id)
     );
-}
+  };
 
-export default ProviderContextoListCart
+  return (
+    <listCartContext.Provider
+      value={{ removeFromCart, listCart, addProduct, clearCart }}
+    >
+      {children}
+    </listCartContext.Provider>
+  );
+};
+
+export default ProviderContextoListCart;

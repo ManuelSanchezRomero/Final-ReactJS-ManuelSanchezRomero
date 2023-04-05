@@ -7,6 +7,9 @@ import Description from "./Description";
 import ButtonAddCart from "./ButtonAddCart";
 import "../../styles/detailsItem.css";
 import cart from "../../img/cart-white.svg"
+import AddCantCart from "../../components/components item/AddCantCart"
+
+
 
 const DetailsItem = (props) => {
   const [item, setItem] = useState(null);
@@ -52,7 +55,12 @@ const DetailsItem = (props) => {
             />
             <div className="buttons">
 
-              <ButtonAddCart id={props.id} svg={cart} style={{ width: "180%"}}/>
+              <AddCantCart initialCant={1}  />
+            <ButtonAddCart 
+                    id={item.id}
+                    svg={cart}
+                />
+
             </div>
           </div>
         </>
