@@ -56,9 +56,11 @@ const DetailsItem = (props) => {
             <div className="buttons">
 
               <AddCantCart initialCant={1}  />
-            <ButtonAddCart 
+              <ButtonAddCart 
                     id={item.id}
                     svg={cart}
+                    cant={item.quantity}
+
                 />
 
             </div>

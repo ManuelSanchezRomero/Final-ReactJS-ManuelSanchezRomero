@@ -1,10 +1,9 @@
+/* eslint-disable no-unused-vars */
 import { useState, createContext } from "react";
 import {
   getFirestore,
   collection,
   getDocs,
-  where,
-  query,
 } from "firebase/firestore";
 
 export const listCartContext = createContext(null);
@@ -15,7 +14,7 @@ const ProviderContextoListCart = ({ children }) => {
   const addProduct = (id, cant) => {
     const db = getFirestore();
     const itemCollection = collection(db, "react-product");
-  
+
     getDocs(itemCollection)
       .then((snapshotList) => {
         const docs = snapshotList.docs.map((snapshot) => ({
@@ -23,7 +22,7 @@ const ProviderContextoListCart = ({ children }) => {
           ...snapshot.data(),
         }));
         const product = docs.find((product) => product.id === id);
-  
+
         if (product) {
           let add = true;
           for (let item of listCart) {
@@ -43,7 +42,7 @@ const ProviderContextoListCart = ({ children }) => {
           add &&
             setListCart((prevListCart) => [
               ...prevListCart,
-              { ...product, quantity: cant },
+              { ...product, stock: cant },
             ]);
         }
       })

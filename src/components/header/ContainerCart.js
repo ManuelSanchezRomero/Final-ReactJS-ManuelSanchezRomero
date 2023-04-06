@@ -4,7 +4,7 @@ import ItemCart from "./ItemCart";
 import clear from "../../img/clear.svg";
 import { useContext } from "react";
 import { controllerShowCart } from "./ContextCart";
-import { listCartContext } from "../components item/providerContextoListCart";
+import { listCartContext} from "../components item/providerContextoListCart";
 
 const ContainerCart = () => {
 
@@ -24,7 +24,7 @@ const ContainerCart = () => {
             <div className="cart" style={style} >
                 <div className="cerrar">
                     <button className="close" onClick={closeCart}>
-                        <img src={close}></img>
+                        <img src={close} alt="cerrar"></img>
                     </button>
                 </div>
 
@@ -51,7 +51,7 @@ const ContainerCart = () => {
                     </button>
 
                     <button className="clear" onClick={clearCart}>
-                        <img src={clear}></img>
+                        <img src={clear} alt="limpiar"></img>
                     </button>
                 </div>
             </div>
