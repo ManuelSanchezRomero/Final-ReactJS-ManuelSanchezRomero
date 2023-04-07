@@ -5,6 +5,7 @@ import Description from "./Description";
 import ButtonDetalles from "./Buttondetalles";
 import ButtonAddCart from "./ButtonAddCart";
 import cart from "../../img/cart-white.svg"
+import AddCantCart from "../../components/components item/AddCantCart"
 
 
 
@@ -27,11 +28,9 @@ const CardItem = (props) => {
                     />
                 </Link>
 
-                <ButtonAddCart 
-                    id={props.id}
-                    svg={cart}
+                <div className="buttons">
 
-                />
+</div>
             </div>
         </div>
     )

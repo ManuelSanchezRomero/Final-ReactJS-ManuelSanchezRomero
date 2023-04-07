@@ -3,14 +3,14 @@ import { listCartContext } from "./providerContextoListCart";
 
 
 
-const ButtonAddCart = ({ id, svg }) => {
+const ButtonAddCart = ({ id, svg, cant }) => {
   const { addProduct } = useContext(listCartContext);
   const [count, setCount] = useState(1);
   
   const handleClick = () => {
     const newCount = count; 
     setCount(newCount); 
-    addProduct(id, newCount); 
+    addProduct(id, cant); 
   }
 
 

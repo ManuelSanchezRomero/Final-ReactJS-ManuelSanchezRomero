@@ -5,7 +5,6 @@ import MoonLoader from "react-spinners/ClipLoader";
 import Image from "./Image";
 import Description from "./Description";
 import "../../styles/detailsItem.css";
-
 import AddCantCart from "../../components/components item/AddCantCart"
 
 
@@ -54,9 +53,7 @@ const DetailsItem = (props) => {
             />
             <div className="buttons">
 
-            <AddCantCart initialCant={1} item={item}/>
-
-
+              <AddCantCart initialCant={1}  item={item}/>
             </div>
           </div>
         </>
@@ -66,4 +63,3 @@ const DetailsItem = (props) => {
 };
 
 export default DetailsItem;
-
