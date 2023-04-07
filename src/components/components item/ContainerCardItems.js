@@ -15,25 +15,24 @@ const ContainerCardItems = () => {
     
     let queryCollection = itemCollection;
     
-
     if (idCategory) {
       const categoryFilter = where("type", "==", idCategory);
       queryCollection = query(itemCollection, categoryFilter);
     }
     
     getDocs(queryCollection)
-      .then((snapshotList) => {
-        const docs = snapshotList.docs.map((snapshot) => ({
-          id: snapshot.id,
-          ...snapshot.data(),
-        }));
-        setItems(docs);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    .then((snapshotList) => {
+      const docs = snapshotList.docs.map((snapshot) => ({
+        id: snapshot.id,
+        ...snapshot.data(),
+      }));
+      setItems(docs);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }, [idCategory]);
-
+  
   return (
     <div className="containerCardItems">
       {items.length === 0 ? (
@@ -43,17 +42,18 @@ const ContainerCardItems = () => {
       ) : (
         items.map((product) => (
           <CardItem
-            key={product.id}
-            id={product.id}
-            imagen={product.imageProduct}
-            title={product.title}
-            cantidad={product.stock}
-            precio={product.price}
+          key={product.id}
+          id={product.id}
+          imagen={product.imageProduct}
+          title={product.title}
+          cantidad={product.stock}
+          precio={product.price}
           />
-        ))
-      )}
+          ))
+          )}
     </div>
   );
 };
+
 
 export default ContainerCardItems;

@@ -1,9 +1,9 @@
-/* eslint-disable no-unused-vars */
 import { useState, createContext } from "react";
 import {
   getFirestore,
   collection,
   getDocs,
+
 } from "firebase/firestore";
 
 export const listCartContext = createContext(null);
@@ -28,7 +28,7 @@ const ProviderContextoListCart = ({ children }) => {
           for (let item of listCart) {
             if (item.id === id) {
               if (item.quantity + cant <= product.stock) {
-                const newQuantity = { ...item, quantity: item.quantity + cant };
+                const newQuantity = { ...item, stock: item.quantity =+ cant };
                 setListCart((prevListCart) =>
                   prevListCart.map((item) =>
                     item.id === id ? newQuantity : item

@@ -10,11 +10,11 @@ const ContainerCart = () => {
 
     const { cartShow, setCartShow} = useContext(controllerShowCart);
     const {listCart, clearCart } = useContext(listCartContext);
-
     const style = {
         display: cartShow
     }
-
+    console.log({listCart});
+    
     const closeCart = () => {
         setCartShow( (cartShow === "none") ? "flex" : "none" )
     }
@@ -37,7 +37,7 @@ const ContainerCart = () => {
                                 id={producto.id}
                                 title={producto.title}
                                 image={producto.imageProduct}
-                                quantity={producto.quantity}
+                                quantity={producto.stock}
                                 price={producto.price}
                             />
                         ))

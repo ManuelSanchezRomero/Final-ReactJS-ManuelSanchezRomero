@@ -30,7 +30,7 @@ const CardItem = (props) => {
                 <ButtonAddCart 
                     id={props.id}
                     svg={cart}
-                    cant={props.quantity}
+
                 />
             </div>
         </div>

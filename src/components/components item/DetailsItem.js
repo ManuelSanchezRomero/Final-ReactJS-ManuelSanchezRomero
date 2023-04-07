@@ -4,9 +4,8 @@ import { getFirestore, doc, getDoc } from "firebase/firestore";
 import MoonLoader from "react-spinners/ClipLoader";
 import Image from "./Image";
 import Description from "./Description";
-import ButtonAddCart from "./ButtonAddCart";
 import "../../styles/detailsItem.css";
-import cart from "../../img/cart-white.svg"
+
 import AddCantCart from "../../components/components item/AddCantCart"
 
 
@@ -55,13 +54,8 @@ const DetailsItem = (props) => {
             />
             <div className="buttons">
 
-              <AddCantCart initialCant={1}  />
-              <ButtonAddCart 
-                    id={item.id}
-                    svg={cart}
-                    cant={item.quantity}
+            <AddCantCart initialCant={1} item={item}/>
 
-                />
 
             </div>
           </div>
