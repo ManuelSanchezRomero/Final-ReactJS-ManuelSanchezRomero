@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import ButtonAddCart from "./ButtonAddCart";
 import cart from "../../img/cart-white.svg"
@@ -29,7 +30,7 @@ const AddCantCart = ({ initialCant, onCantChange, item }) => {
   
   return (
     <div className="addCantCart">
-      <span>Quiero:</span>
+      <span className="quieroSpan">Quiero:</span>
       <div>
         <button id="quitar" onClick={handleDecrease}>-</button>
 

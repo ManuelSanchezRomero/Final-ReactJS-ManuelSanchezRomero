@@ -3,9 +3,7 @@ import { Link } from "react-router-dom";
 import "../../styles/cardItem.css"
 import Description from "./Description";
 import ButtonDetalles from "./Buttondetalles";
-import ButtonAddCart from "./ButtonAddCart";
-import cart from "../../img/cart-white.svg"
-import AddCantCart from "../../components/components item/AddCantCart"
+
 
 
 

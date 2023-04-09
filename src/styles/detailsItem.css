@@ -26,13 +26,14 @@
 .detailsItem .containerLeft .cardImg {
     display: flex;
     justify-content: center;
+    width: 400px;
     
 }
 
 .detailsItem .containerLeft Img{
     width: 100%;
     transition: 0.5s;
-    border-radius: 20px;
+    border-radius: 25px;
 }
 
 .detailsItem .containerLeft Img:hover{
@@ -115,18 +116,23 @@
 }
 
 .detailsItem .containerRigth .buttons .addCantCart{
-    width: 48%;
+    width: 60%;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     border: 1px solid #5b00fb;
     border-radius: 50px;
-    height: 60px;
+    height: 65px;
+}
+
+span.cantTxt {
+    font-weight: 700;
 }
 
 .detailsItem .containerRigth .buttons .addCantCart span {
     font-weight: 20px;
     margin: 0 10px;
+    
 }
 
 .detailsItem .containerRigth .buttons .addCantCart div {
@@ -156,3 +162,9 @@
     border: none;
     font-size: 21px;
 }
+
+span.quieroSpan{
+ font-style: italic;
+ font-size: 20px;
+}
+
