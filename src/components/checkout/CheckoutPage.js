@@ -1,11 +1,11 @@
 import React, { useState, useContext} from "react";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
-import {useNavigate} from "react-router-dom";
 import "../../styles/checkout.css"
 import { listCartContext } from "../components item/providerContextoListCart";
 
 
 const CheckoutPage = () => {
+  
   const [formValues, setFormValues] = useState({
     name: "",
     address: "",
@@ -17,7 +17,6 @@ const CheckoutPage = () => {
     0
   );
   
-  const GraciasPage = useNavigate();
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -28,7 +27,7 @@ const CheckoutPage = () => {
     event.preventDefault();
 
     const db = getFirestore();
-    const ordersCollection = collection(db, "orders");
+    const ordersCollection = collection(db, "confirmar");
 
     try {
       const newOrder = {
@@ -41,9 +40,8 @@ const CheckoutPage = () => {
 
       await addDoc(ordersCollection, newOrder);
 
-      // Limpiar carrito y redirigir al usuario a la página de agradecimiento
+
       localStorage.removeItem("cart");
-      GraciasPage.push("/thank-you-page");
     } catch (error) {
       console.log(error);
     }
@@ -60,7 +58,7 @@ const CheckoutPage = () => {
 
     <div className="CheckContainer">
       <h2 >Finalizar Compra</h2>
-      <form onSubmit={handleSubmit}>
+      <form >
         <label>
           Nombre:
           <input
@@ -95,7 +93,7 @@ const CheckoutPage = () => {
           </select>
         </label>
 <br></br>
-        <button type="submit">Realizar Pedido</button>
+        <button type="submit" onClick={handleSubmit}>Realizar Pedido</button>
       </form>
     </div>
 </>
