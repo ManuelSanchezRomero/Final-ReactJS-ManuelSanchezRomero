@@ -1,15 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useContext} from "react";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import {useNavigate} from "react-router-dom";
+import "../../styles/checkout.css"
+import { listCartContext } from "../components item/providerContextoListCart";
 
 
-const CheckoutPage = ( cart, totalPrice ) => {
+const CheckoutPage = () => {
   const [formValues, setFormValues] = useState({
     name: "",
     address: "",
     paymentMethod: "",
   });
-
+  const { listCart } = useContext(listCartContext);
+  const totalPrice = listCart.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+  
   const GraciasPage = useNavigate();
 
   const handleInputChange = (event) => {
@@ -25,7 +32,6 @@ const CheckoutPage = ( cart, totalPrice ) => {
 
     try {
       const newOrder = {
-        cart: cart,
         totalPrice: totalPrice,
         name: formValues.name,
         address: formValues.address,
@@ -44,8 +50,16 @@ const CheckoutPage = ( cart, totalPrice ) => {
   };
 
   return (
-    <div>
-      <h2>Finalizar Compra</h2>
+<>
+{listCart.map((item) => (
+  <div key={item.id}>
+    <p>{item.name} - ${item.price} x {item.quantity}</p>
+  </div>
+))}
+<p>Total: ${totalPrice}</p>
+
+    <div className="CheckContainer">
+      <h2 >Finalizar Compra</h2>
       <form onSubmit={handleSubmit}>
         <label>
           Nombre:
@@ -56,6 +70,7 @@ const CheckoutPage = ( cart, totalPrice ) => {
             onChange={handleInputChange}
           />
         </label>
+<br></br>
         <label>
           Direccion:
           <input
@@ -65,7 +80,8 @@ const CheckoutPage = ( cart, totalPrice ) => {
             onChange={handleInputChange}
           />
         </label>
-        <label>
+<br></br>
+        <label className="labelPago">
           Forma de pago:
           <select
             name="paymentMethod"
@@ -78,9 +94,11 @@ const CheckoutPage = ( cart, totalPrice ) => {
             <option value="paypal">Mercadopago</option>
           </select>
         </label>
+<br></br>
         <button type="submit">Realizar Pedido</button>
       </form>
     </div>
+</>
   );
 };
 

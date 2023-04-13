@@ -8,9 +8,11 @@ import {
 
 export const listCartContext = createContext(null);
 
+
 const ProviderContextoListCart = ({ children }) => {
   const [listCart, setListCart] = useState([]);
-  
+  const [totalPrice, setTotalPrice] = useState(0);
+
   const addProduct = (id, cant) => {
     const db = getFirestore();
     const itemCollection = collection(db, "react-product");
@@ -34,16 +36,19 @@ const ProviderContextoListCart = ({ children }) => {
               item.id === id ? newQuantity : item
               )
               );
+              setTotalPrice((prevTotalPrice) => prevTotalPrice + product.price * cant);
               }
               add = false;
               break;
             }
           }
-          add &&
-          setListCart((prevListCart) => [
-            ...prevListCart,
-            { ...product, stock: cant },
-          ]);
+          if (add) {
+            setListCart((prevListCart) => [
+              ...prevListCart,
+              { ...product, stock: cant },
+            ]);
+            setTotalPrice((prevTotalPrice) => prevTotalPrice + product.price * cant);
+          }
         }
       })
       .catch((error) => {
@@ -51,23 +56,26 @@ const ProviderContextoListCart = ({ children }) => {
       });
     };
     
+
   const clearCart = () => {
     setListCart([]);
+    setTotalPrice(0);
   };
 
-  const removeFromCart = (id) => {
+  const removeFromCart = (id, cant) => {
+    const product = listCart.find((product) => product.id === id);
     setListCart((prevListCart) =>
     prevListCart.filter((product) => product.id !== id)
     );
+    setTotalPrice((prevTotalPrice) => prevTotalPrice - product.price * cant);
   };
   
   return (
     <listCartContext.Provider
-    value={{ removeFromCart, listCart, addProduct, clearCart }}
+    value={{ removeFromCart, listCart, addProduct, clearCart, totalPrice }}
     >
       {children}
     </listCartContext.Provider>
   );
 };
-
 export default ProviderContextoListCart;

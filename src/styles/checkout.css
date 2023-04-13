@@ -1,0 +1,33 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.CheckContainer{
+    height: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 80px 10px;
+    background-color:#9e9e9e;
+}
+
+.CheckContainer input{
+    margin: 10px;
+    border-radius: 15px;
+    width: 80%;
+    height: 20%;
+    font-weight: 700;
+    padding: 5px;
+}
+
+.labelPago{
+    margin: 5px;
+}
+
+.CheckContainer select{
+    padding: 10px;
+}
