@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import {useNavigate} from "react-router-dom";
 
-const CheckoutPage = ({ cart, totalPrice }) => {
+
+const CheckoutPage = ( cart, totalPrice ) => {
   const [formValues, setFormValues] = useState({
     name: "",
     address: "",
     paymentMethod: "",
   });
 
-  const history = useNavigate();
+  const GraciasPage = useNavigate();
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -36,7 +37,7 @@ const CheckoutPage = ({ cart, totalPrice }) => {
 
       // Limpiar carrito y redirigir al usuario a la página de agradecimiento
       localStorage.removeItem("cart");
-      history.push("/thank-you-page");
+      GraciasPage.push("/thank-you-page");
     } catch (error) {
       console.log(error);
     }

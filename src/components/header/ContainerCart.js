@@ -11,10 +11,11 @@ const ContainerCart = () => {
 
     const { cartShow, setCartShow} = useContext(controllerShowCart);
     const {listCart, clearCart } = useContext(listCartContext);
-
+    // console.log(listCart)
     const style = {
         display: cartShow
     }
+    const totalPrice = listCart.reduce((acc, product) => acc + product.price * product.stock, 0);
 
     const closeCart = () => {
         setCartShow( (cartShow === "none") ? "flex" : "none" )
@@ -45,6 +46,7 @@ const ContainerCart = () => {
                     }   
                 </div>
 
+                <p className="totalPagar">Total a pagar: <span className="spanTotal">$ {totalPrice}</span> </p>
                 <div className="TerminarCompra">
                     <Link to="/checkout">
                         <button className="terminar" >

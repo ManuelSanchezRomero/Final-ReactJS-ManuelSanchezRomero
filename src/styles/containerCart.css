@@ -70,8 +70,10 @@
     border: none;
 }
 
+
 .cart .TerminarCompra .terminar{
     background-color: #5b00fb;
+    text-decoration: none;
     height: 55px;
     width: 88%;
     border: none;
@@ -95,3 +97,12 @@
 }
 
 
+.totalPagar{
+    color: #5b00fb;
+    font-size: 25px;
+}
+
+.spanTotal{
+    font-size: 45px;
+    font-weight: 700;
+}
