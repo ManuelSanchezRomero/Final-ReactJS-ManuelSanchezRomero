@@ -7,12 +7,15 @@ import { controllerShowCart } from "./ContextCart";
 import { listCartContext} from "../components item/providerContextoListCart";
 import { Link } from "react-router-dom";
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
+import { useNavigate } from "react-router-dom";
 
 
 
 const ContainerCart = () => {
 
+    
     const db = getFirestore();
+    const navigate = useNavigate();
     const handleCheckout = async () => {
         const ordersCollection = collection(db, "orders");
         const order = { 
@@ -22,6 +25,7 @@ const ContainerCart = () => {
         try {
           const docRef = await addDoc(ordersCollection, order);
           console.log("Document written with ID: ", docRef.id);
+          navigate(`/checkout/${docRef.id}`);
         } catch (e) {
           console.error("Error adding document: ", e);
         }
@@ -69,11 +73,10 @@ const ContainerCart = () => {
 
                 <p className="totalPagar">Total a pagar: <span className="spanTotal">$ {totalPrice}</span> </p>
                 <div className="TerminarCompra">
-                    <Link to="/checkout">
                         <button className="terminar" onClick={handleCheckout}>
                             Terminar compra
                         </button>
-                    </Link>
+
                     <button className="clear" onClick={clearCart}>
                         <img src={clear} alt="limpiar"></img>
                     </button>

@@ -1,4 +1,5 @@
 import React, { useState, useContext} from "react";
+
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import "../../styles/checkout.css"
 import { listCartContext } from "../components item/providerContextoListCart";
@@ -88,7 +89,7 @@ const CheckoutPage = () => {
           >
             <option value="">--Select--</option>
             <option value="credit-card">Tarjeta de credito</option>
-            <option value="debit-card">Tarjeta de credito</option>
+            <option value="debit-card">Tarjeta de debito</option>
             <option value="paypal">Mercadopago</option>
           </select>
         </label>

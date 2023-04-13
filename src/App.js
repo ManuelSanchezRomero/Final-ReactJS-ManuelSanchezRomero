@@ -20,7 +20,7 @@ function App() {
             <Route path='/' element={ <ContainerCardItems />} />
             <Route path='/item/:idItem' element={ <DetailsItem />} />
             <Route path='/category/:idCategory' element={ <ContainerCardItems />} />
-            <Route path='/checkout' element={ <CheckoutPage />} />
+            <Route path='/checkout/:idOrder' element={ <CheckoutPage />} />
           </Routes>
       </BrowserRouter>
     </ProviderContextoListCart>
