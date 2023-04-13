@@ -5,7 +5,7 @@ import clear from "../../img/clear.svg";
 import { useContext } from "react";
 import { controllerShowCart } from "./ContextCart";
 import { listCartContext} from "../components item/providerContextoListCart";
-import { Link } from "react-router-dom";
+
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
 import { useNavigate } from "react-router-dom";
 

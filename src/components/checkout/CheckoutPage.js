@@ -1,12 +1,13 @@
 import React, { useState, useContext} from "react";
-
+import { useParams } from "react-router-dom";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import "../../styles/checkout.css"
 import { listCartContext } from "../components item/providerContextoListCart";
 
 
 const CheckoutPage = () => {
-  
+  const {idOrder} = useParams();
+  console.log({idOrder});
   const [formValues, setFormValues] = useState({
     name: "",
     address: "",
@@ -48,6 +49,9 @@ const CheckoutPage = () => {
     }
   };
 
+
+
+  
   return (
 <>
 {listCart.map((item) => (
