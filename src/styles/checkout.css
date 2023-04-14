@@ -4,15 +4,35 @@
     box-sizing: border-box;
 }
 
-.CheckContainer{
-    height: 800px;
+.form{
+    height: 100vh;
+    width: 60%;
+    padding: 15px;
+    margin: 200px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    justify-content: center;
+    background-color: rgb(170, 166, 199);
+}
+
+.form h2{
+    font-style: italic;
+    text-decoration: underline;
+    margin-bottom: 15px;
+}
+
+.CheckContainer{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 200px;
     flex-wrap: wrap;
     padding: 80px 10px;
     background-color:#9e9e9e;
+    font-size: 30px;
 }
 
 .CheckContainer input{
@@ -28,6 +48,54 @@
     margin: 5px;
 }
 
+
+
 .CheckContainer select{
     padding: 10px;
+}
+
+button.checkSubmit{
+    width: 100%;
+    height: 20%;
+    background-color: #5b00fb;
+    border-radius: 50px;
+    color: white;
+    border: none;
+    font-size: 21px;
+    transition: 0.3s;
+    margin-top: 50px;
+}
+
+button.checkSubmit:hover{
+    background-color: goldenrod;
+}
+
+/* --------------------------------- Saludo --------------------------------- */
+
+.Saludo{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    flex-wrap: wrap;
+    padding: 80px 10px;
+    background-color:#9e9e9e;
+    font-size: 30px;
+}
+
+button.botonSaludo{
+    width: 150%;
+    height: 200%;
+    background-color: #5b00fb;
+    border-radius: 50px;
+    color: white;
+    border: none;
+    font-size: 21px;
+    transition: 0.3s;
+}
+
+button.botonSaludo:hover{
+    background-color: goldenrod;
 }

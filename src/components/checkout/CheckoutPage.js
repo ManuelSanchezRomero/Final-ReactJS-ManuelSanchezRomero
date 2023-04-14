@@ -1,11 +1,13 @@
-import React, { useState, useContext} from "react";
+import React, { useState} from "react";
 import { useParams } from "react-router-dom";
 import { getFirestore, collection, addDoc } from "firebase/firestore";
 import "../../styles/checkout.css"
-import { listCartContext } from "../components item/providerContextoListCart";
+import { useNavigate } from "react-router-dom";
+
 
 
 const CheckoutPage = () => {
+  const navigate = useNavigate();
   const {idOrder} = useParams();
   console.log({idOrder});
   const [formValues, setFormValues] = useState({
@@ -13,12 +15,7 @@ const CheckoutPage = () => {
     address: "",
     paymentMethod: "",
   });
-  const { listCart } = useContext(listCartContext);
-  const totalPrice = listCart.reduce(
-    (total, item) => total + item.price * item.quantity,
-    0
-  );
-  
+
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -27,13 +24,13 @@ const CheckoutPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    navigate('/finalizar');
 
     const db = getFirestore();
     const ordersCollection = collection(db, "confirmar");
 
     try {
       const newOrder = {
-        totalPrice: totalPrice,
         name: formValues.name,
         address: formValues.address,
         paymentMethod: formValues.paymentMethod,
@@ -49,19 +46,12 @@ const CheckoutPage = () => {
     }
   };
 
-
-
   
   return (
 <>
-{listCart.map((item) => (
-  <div key={item.id}>
-    <p>{item.name} - ${item.price} x {item.quantity}</p>
-  </div>
-))}
-<p>Total: ${totalPrice}</p>
 
     <div className="CheckContainer">
+      <div className="form">
       <h2 >Finalizar Compra</h2>
       <form >
         <label>
@@ -94,12 +84,15 @@ const CheckoutPage = () => {
             <option value="">--Select--</option>
             <option value="credit-card">Tarjeta de credito</option>
             <option value="debit-card">Tarjeta de debito</option>
-            <option value="paypal">Mercadopago</option>
+            <option value="mercadopago">Mercadopago</option>
           </select>
         </label>
 <br></br>
-        <button type="submit" onClick={handleSubmit}>Realizar Pedido</button>
+
+            <button type="submit" onClick={handleSubmit} className="checkSubmit">Realizar Pedido</button>
+
       </form>
+      </div>
     </div>
 </>
   );
